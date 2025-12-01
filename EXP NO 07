@@ -1,0 +1,23 @@
+from multiprocessing import Process, Queue
+
+# Function for Process 1
+def sender(q):
+    msg = "Hello from Process 1"
+    q.put(msg)  # Put message in the queue
+
+# Function for Process 2
+def receiver(q):
+    msg = q.get()  # Get message from the queue
+    print("Process 2 received:", msg)
+
+if __name__ == "__main__":
+    q = Queue()  # Create a queue
+
+    p1 = Process(target=sender, args=(q,))
+    p2 = Process(target=receiver, args=(q,))
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.join()
