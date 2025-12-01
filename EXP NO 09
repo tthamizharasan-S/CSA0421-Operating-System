@@ -1,0 +1,49 @@
+def bankers_algorithm(n, m, alloc, maxm, avail):
+    need = [[0] * m for _ in range(n)]
+    for i in range(n):
+        for j in range(m):
+            need[i][j] = maxm[i][j] - alloc[i][j]
+
+    finish = [0] * n
+    safe_seq = []
+    work = avail.copy()
+
+    while len(safe_seq) < n:
+        found = False
+        for i in range(n):
+            if finish[i] == 0 and all(need[i][j] <= work[j] for j in range(m)):
+                for k in range(m):
+                    work[k] += alloc[i][k]
+                safe_seq.append(i)
+                finish[i] = 1
+                found = True
+        if not found:
+            print("\nSystem is in UNSAFE state!")
+            return
+    print("\nSystem is in SAFE state.")
+    print("Safe Sequence:", ' -> '.join(['P'+str(i) for i in safe_seq]))
+
+
+# Example input
+n = 5  # Number of processes
+m = 3  # Number of resources
+
+alloc = [
+    [0, 1, 0],
+    [2, 0, 0],
+    [3, 0, 2],
+    [2, 1, 1],
+    [0, 0, 2]
+]
+
+maxm = [
+    [7, 5, 3],
+    [3, 2, 2],
+    [9, 0, 2],
+    [2, 2, 2],
+    [4, 3, 3]
+]
+
+avail = [3, 3, 2]
+
+bankers_algorithm(n, m, alloc, maxm, avail)
