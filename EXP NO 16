@@ -1,0 +1,24 @@
+# First Fit Memory Allocation
+
+# Input memory blocks and process sizes
+memory_blocks = [100, 500, 200, 300, 600]  # Example memory blocks
+processes = [212, 417, 112, 426]           # Example processes
+
+# Initialize allocation
+allocation = [-1] * len(processes)
+
+# First Fit Allocation
+for i in range(len(processes)):
+    for j in range(len(memory_blocks)):
+        if memory_blocks[j] >= processes[i]:
+            allocation[i] = j
+            memory_blocks[j] -= processes[i]  # Reduce available block size
+            break
+
+# Display results
+print("Process No.\tProcess Size\tBlock No.")
+for i in range(len(processes)):
+    if allocation[i] != -1:
+        print(f"{i+1}\t\t{processes[i]}\t\t{allocation[i]+1}")
+    else:
+        print(f"{i+1}\t\t{processes[i]}\t\tNot Allocated")
