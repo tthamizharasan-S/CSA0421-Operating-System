@@ -1,0 +1,26 @@
+users = {}
+
+# Enter number of users
+n = int(input("Enter Number of users : "))
+
+for i in range(n):
+    print()
+    user = input("Enter user name : ")
+    file_count = int(input("Enter Number of files : "))
+    print("Enter File names:")
+
+    files = []
+    for j in range(file_count):
+        fname = input()
+        files.append(fname)
+
+    users[user] = files
+
+print()
+search_user = input("Enter user to Search : ")
+search_file = input("Enter File name : ")
+
+if search_user in users and search_file in users[search_user]:
+    print("File found under user", search_user + ".")
+else:
+    print("File not found under user", search_user + ".")
