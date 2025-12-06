@@ -1,0 +1,18 @@
+# FCFS Disk Scheduling
+
+# Input
+requests = [98, 183, 41, 122, 14, 124, 65, 67]  # Disk request queue
+head = 53  # Initial head position
+
+total_head_movement = 0
+current_position = head
+
+print("Request\tHead Movement")
+
+for request in requests:
+    movement = abs(request - current_position)
+    print(f"{request}\t{movement}")
+    total_head_movement += movement
+    current_position = request
+
+print(f"\nTotal Head Movement: {total_head_movement}")
