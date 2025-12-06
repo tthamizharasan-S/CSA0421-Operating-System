@@ -1,0 +1,48 @@
+# SCAN Disk Scheduling
+
+requests = [98, 183, 41, 122, 14, 124, 65, 67]
+head = 53
+disk_size = 199
+direction = "up"  # "up" means moving towards higher cylinder numbers
+
+requests.append(0)
+requests.append(disk_size-1)
+requests.sort()
+
+total_head_movement = 0
+current_position = head
+
+index = 0
+for i in range(len(requests)):
+    if requests[i] >= head:
+        index = i
+        break
+
+print("Request\tHead Movement")
+
+if direction == "up":
+    # Move up first
+    for i in range(index, len(requests)):
+        movement = abs(requests[i] - current_position)
+        print(f"{requests[i]}\t{movement}")
+        total_head_movement += movement
+        current_position = requests[i]
+    # Then move down
+    for i in range(index-1, -1, -1):
+        movement = abs(requests[i] - current_position)
+        print(f"{requests[i]}\t{movement}")
+        total_head_movement += movement
+        current_position = requests[i]
+else:  # Moving down
+    for i in range(index-1, -1, -1):
+        movement = abs(requests[i] - current_position)
+        print(f"{requests[i]}\t{movement}")
+        total_head_movement += movement
+        current_position = requests[i]
+    for i in range(index, len(requests)):
+        movement = abs(requests[i] - current_position)
+        print(f"{requests[i]}\t{movement}")
+        total_head_movement += movement
+        current_position = requests[i]
+
+print(f"\nTotal Head Movement: {total_head_movement}")
