@@ -1,0 +1,38 @@
+# Single-Level Directory Simulation in Python
+
+# Initialize single-level directory
+directory = []  # List to store file names
+
+# Function to create a file
+def create_file(filename):
+    if filename in directory:
+        print(f"File '{filename}' already exists!")
+    else:
+        directory.append(filename)
+        print(f"File '{filename}' created successfully.")
+
+# Function to delete a file
+def delete_file(filename):
+    if filename in directory:
+        directory.remove(filename)
+        print(f"File '{filename}' deleted successfully.")
+    else:
+        print(f"File '{filename}' not found!")
+
+# Function to display all files
+def display_files():
+    if len(directory) == 0:
+        print("Directory is empty.")
+    else:
+        print("Files in the directory:")
+        for file in directory:
+            print(file)
+
+# Demo
+create_file("file1.txt")
+create_file("file2.txt")
+create_file("file1.txt")  # Trying to create duplicate
+display_files()
+delete_file("file2.txt")
+display_files()
+delete_file("file3.txt")  # Trying to delete non-existing file
