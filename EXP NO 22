@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <sys/stat.h>
+
+int main() {
+    int fd;
+    struct stat st;
+    DIR *d;
+    struct dirent *de;
+
+  
+    stat("input.txt", &st);
+    printf("File size: %ld bytes\n", st.st_size);
+
+   
+    fd = open("input.txt", O_RDONLY);
+    lseek(fd, 5, SEEK_SET);
+    printf("Pointer moved to position 5.\n");
+
+
+    int flags = fcntl(fd, F_GETFL);
+    printf("File flags = %d\n", flags);
+
+
+    d = opendir(".");
+    printf("\nFiles in current directory:\n");
+    while ((de = readdir(d)) != NULL) {
+        printf("%s\n", de->d_name);
+    }
+
+    closedir(d);
+    close(fd);
+
+    return 0;
+}
